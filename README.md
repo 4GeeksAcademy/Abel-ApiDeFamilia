@@ -187,7 +187,7 @@ body: {
 
 ## Requirements
 
-- All requests and responses should be in content/type: application/json
+- All requests and responses should be in content/type: application/json.
 - Response codes must be `200` for success, `400` for bad request, or `404` for not found.
 - These exercises do not include a database, everything must be done in Runtime (RAM).
 
