@@ -3,7 +3,13 @@ Update this file to implement the following already declared methods:
 - add_member: Should add a member to the self._members list
 - delete_member: Should delete a member from the self._members list
 - get_member: Should return a member from the self._members list
+
+requirments:
+  -  All requests and responses should be in content/type: application/json
+  -  Response codes must be 200 for success, 400 for bad request, or 404 for not found.
+  -  These exercises do not include a database, everything must be done in Runtime (RAM).
 """
+
 
 class FamilyStructure:
     def __init__(self, last_name):
@@ -16,7 +22,23 @@ class FamilyStructure:
                 "last_name": last_name,
                 "age": 33,
                 "lucky_numbers": [7, 13, 22]
+            },
+            {
+                "id": self._generate_id(),
+
+                "first_name": "Jane",
+                "last_name": last_name,
+                "age": 35,
+                "lucky_numbers": [10, 14, 3]
+            },
+            {
+                "id": self._generate_id(),
+                "first_name": "Jimmy",
+                "last_name": last_name,
+                "age": 5,
+                "lucky_numbers": [1]
             }
+
         ]
 
     # This method generates a unique incremental ID
@@ -26,19 +48,26 @@ class FamilyStructure:
         return generated_id
 
     def add_member(self, member):
-        ## You have to implement this method
-        ## Append the member to the list of _members
-        pass
+        member["id"] = self._generate_id
+        member["last_name"] = self.last_name
+        data = {
+            "id": self._generate_id(),
+            "first_name": member["first_name"],
+            "last_name": self.last_name,
+            "age": member["age"],
+            "lucky_numbers": [1]
+        }
+        self._members.append(data)
 
-    def delete_member(self, id):
-        ## You have to implement this method
-        ## Loop the list and delete the member with the given id
-        pass
+    def delete_member(self, uid):
+        list_before_delete_member = [
+            member for member in self._members if member["id"] != uid]
+        self._members = list_before_delete_member
 
-    def get_member(self, id):
-        ## You have to implement this method
-        ## Loop all the members and return the one with the given id
-        pass
+    def get_member(self, uid):
+        for member in self._members:
+            if member["id"] == uid:
+                return member
 
     # This method is done, it returns a list with all the family members
     def get_all_members(self):
